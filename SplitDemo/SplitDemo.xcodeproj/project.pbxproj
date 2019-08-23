@@ -70,7 +70,6 @@
 				D4A07115230CECB700252888 /* ViewController.swift */,
 				D4A07136230E456800252888 /* Content */,
 				D4A07135230E451A00252888 /* SideMenu */,
-				D4A0712F230E44C200252888 /* Model */,
 				D4A07113230CECB700252888 /* AppDelegate.swift */,
 				D4A0711A230CECB900252888 /* Assets.xcassets */,
 				D4A0711C230CECB900252888 /* LaunchScreen.storyboard */,
@@ -99,8 +98,8 @@
 		D4A07136230E456800252888 /* Content */ = {
 			isa = PBXGroup;
 			children = (
-				D4A07138230E45C200252888 /* Cell */,
-				D4A07137230E45B800252888 /* Header */,
+				D4FE58B5230F88A300BD78F6 /* View */,
+				D4A0712F230E44C200252888 /* Model */,
 			);
 			path = Content;
 			sourceTree = "<group>";
@@ -120,6 +119,15 @@
 				D4A07139230E464D00252888 /* CustomCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		D4FE58B5230F88A300BD78F6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D4A07138230E45C200252888 /* Cell */,
+				D4A07137230E45B800252888 /* Header */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

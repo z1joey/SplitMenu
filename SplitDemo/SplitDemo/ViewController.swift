@@ -18,12 +18,22 @@ class ViewController: UIViewController {
         tableView.register(nib, forHeaderFooterViewReuseIdentifier: "header")
 
         generateSections()
+
+        NotificationCenter.default.addObserver(self, selector: #selector(didClickSideMenuOption(_:)), name: .didClickSideMenuOption, object: nil)
     }
 
-    func generateSections() {
+    fileprivate func generateSections() {
         for i in 0...5 {
             let section = Section(id: i, title: "ID \(i)", data: ["Chinese", "English", "Japanese", "Germany", "Thailand", "Australia"], isFolding: true)
             sections.append(section)
+        }
+    }
+
+    @objc fileprivate func didClickSideMenuOption(_ notification: Notification) {
+        if let section = notification.userInfo?["Section"] as? Int, let header = tableView.headerView(forSection: section) as? CustomHeader {
+            let section = sections[section]
+            section.isFolding = (section.isFolding == true) ? false : true
+            headerViewAction(headerView: header, section: section)
         }
     }
 
@@ -31,12 +41,16 @@ class ViewController: UIViewController {
 
 extension ViewController: HeaderViewProtocol {
     func headerView(headerView: CustomHeader, didClicked section: Section) {
+        headerViewAction(headerView: headerView, section: section)
+    }
+
+    fileprivate func headerViewAction(headerView: CustomHeader, section: Section) {
         headerView.isUserInteractionEnabled = false
 
         var indexPaths = [IndexPath]()
 
         for i in 0..<section.data.count {
-            let indexPath = IndexPath.init(row: i , section: section.id)
+            let indexPath = IndexPath.init(row: i, section: section.id)
             indexPaths.append(indexPath)
         }
 
@@ -46,11 +60,10 @@ extension ViewController: HeaderViewProtocol {
             } else {
                 self.tableView.insertRows(at: indexPaths, with: .top)
                 let indexSection = IndexPath.init(row: 0, section: section.id)
-                self.tableView.scrollToRow(at: indexSection, at: .middle, animated:true)
+                self.tableView.scrollToRow(at: indexSection, at: .middle, animated: true)
             }
             headerView.isUserInteractionEnabled = true
         }
-
     }
 }
 

@@ -36,4 +36,13 @@ extension SideMenuViewController: UITableViewDataSource, UITableViewDelegate {
         return 95
     }
 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        NotificationCenter.default.post(name: .didClickSideMenuOption, object: nil, userInfo: ["Section": indexPath.row])
+    }
+
+}
+
+extension Notification.Name {
+    static let didClickSideMenuOption = Notification.Name("didClickSideMenuOption")
 }
