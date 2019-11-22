@@ -10,6 +10,13 @@ class SideMenuCell: UITableViewCell {
     @IBOutlet weak var optionImageView: UIImageView!
     @IBOutlet weak var optionTextLabel: UILabel!
 
+    var info: CellInfo? {
+        didSet {
+            optionTextLabel.text = info?.title
+            optionImageView.image = info?.image
+        }
+    }
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -21,9 +28,8 @@ class SideMenuCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
-    func setup(text: String, image: UIImage?) {
-        optionTextLabel.text = text
-        optionImageView.image = image
+    func setup(info: CellInfo) {
+        self.info = info
     }
 
 }
