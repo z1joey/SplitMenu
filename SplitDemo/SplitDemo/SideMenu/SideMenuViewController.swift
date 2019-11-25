@@ -28,7 +28,7 @@ class SideMenuViewController: UIViewController {
 
     fileprivate func setupRxTableview() {
         /// Data Source
-        sectionViewModel.sideMenuOptions
+        ViewModel.section.sideMenuOptions
             .bind(to: tableView.rx.items(cellIdentifier: "cell")) { row, option, cell in
                 if let cell = cell as? SideMenuCell {
                     cell.setup(option: option)
@@ -40,8 +40,8 @@ class SideMenuViewController: UIViewController {
             onNext: { [weak self] indexPath in
                 guard let self = self else { return }
                 self.tableView.deselectRow(at: indexPath, animated: true)
-                sectionViewModel.sections[indexPath.row].isFolding.toggle()
-                let section = sectionViewModel.sections[indexPath.row]
+                ViewModel.section.sections[indexPath.row].isFolding.toggle()
+                let section = ViewModel.section.sections[indexPath.row]
                 self.container?.publishSubject
                     .onNext((row: indexPath.row, isFolding: section.isFolding))
             },

@@ -66,4 +66,7 @@ class SectionViewModel {
 
 }
 
-var sectionViewModel = SectionViewModel()
+/// This is for sharing view model in multiple view controllers
+struct ViewModel {
+    static var section = SectionViewModel()
+}
