@@ -22,42 +22,27 @@ class ViewController: UIViewController {
         tableView.register(nib, forHeaderFooterViewReuseIdentifier: "header")
 
         publishSubject.subscribe(
-            onNext: {
+            onNext: { [weak self] in
                 print("\($0)")
-                if let header = self.tableView.headerView(forSection: $0.row) as? CustomHeader {
-                    self.headerViewAction(headerView: header, atRow: $0.row)
+                if let header = self?.tableView.headerView(forSection: $0.row) as? CustomHeader {
+                    let section = ViewModel.section.sections[$0.row]
+                    self?.headerViewAction(headerView: header, section: section)
                 }
+            },
+            onDisposed: {
+                print("Publish subject disposed")
             }
         ).disposed(by: bag)
+    }
+
+    deinit {
+        print("Deinit: \(self.description)")
     }
 
     fileprivate func headerViewAction(headerView: CustomHeader, section: Section) {
         headerView.isUserInteractionEnabled = false
 
         var indexPaths = [IndexPath]()
-
-        for i in 0..<section.data.count {
-            let indexPath = IndexPath.init(row: i, section: section.id)
-            indexPaths.append(indexPath)
-        }
-
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
-            if section.isFolding == true {
-                self.tableView.deleteRows(at: indexPaths, with: .top)
-            } else {
-                self.tableView.insertRows(at: indexPaths, with: .top)
-                let indexSection = IndexPath.init(row: 0, section: section.id)
-                self.tableView.scrollToRow(at: indexSection, at: .middle, animated: true)
-            }
-            headerView.isUserInteractionEnabled = true
-        }
-    }
-
-    fileprivate func headerViewAction(headerView: CustomHeader,atRow row: Int) {
-        headerView.isUserInteractionEnabled = false
-
-        var indexPaths = [IndexPath]()
-        let section = ViewModel.section.sections[row]
 
         for i in 0..<section.data.count {
             let indexPath = IndexPath.init(row: i, section: section.id)

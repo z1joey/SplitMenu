@@ -68,18 +68,18 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eCE-Pv-mrL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1571.0144927536232" y="172.76785714285714"/>
+            <point key="canvasLocation" x="1497" y="173"/>
         </scene>
         <!--Side Menu View Controller-->
         <scene sceneID="pDp-Q0-jcI">
             <objects>
                 <viewController id="nVQ-xS-bXb" customClass="SideMenuViewController" customModule="SplitDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HEi-Gf-9v8">
-                        <rect key="frame" x="0.0" y="0.0" width="140" height="774"/>
+                        <rect key="frame" x="0.0" y="0.0" width="140" height="818"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="k5t-A7-3xm">
-                                <rect key="frame" x="0.0" y="0.0" width="140" height="774"/>
+                                <rect key="frame" x="0.0" y="0.0" width="140" height="818"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="5Ra-Nd-Dlq">
                                     <rect key="frame" x="0.0" y="151" width="140" height="44"/>
@@ -162,12 +162,41 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="TQA-BX-MhD" kind="relationship" relationship="rootViewController" id="3Rx-sh-Zc5"/>
+                        <segue destination="Frf-Wd-9BM" kind="relationship" relationship="rootViewController" id="uiD-jZ-TZx"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BlV-2B-mUD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="660.86956521739137" y="172.76785714285714"/>
+            <point key="canvasLocation" x="-588" y="173"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="PJY-eT-BTR">
+            <objects>
+                <viewController id="Frf-Wd-9BM" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="w16-RG-roG">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RFP-Zj-jTD">
+                                <rect key="frame" x="184" y="460" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <segue destination="TQA-BX-MhD" kind="show" id="gcI-iP-a4E"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="RFP-Zj-jTD" firstAttribute="centerY" secondItem="COT-jJ-o4c" secondAttribute="centerY" id="Cai-0r-8HO"/>
+                            <constraint firstItem="RFP-Zj-jTD" firstAttribute="centerX" secondItem="COT-jJ-o4c" secondAttribute="centerX" id="y5C-Ep-P5w"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="COT-jJ-o4c"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="5qp-Rt-7zr"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="15e-dg-QUD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="452" y="173"/>
         </scene>
     </scenes>
     <resources>

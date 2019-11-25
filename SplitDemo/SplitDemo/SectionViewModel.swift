@@ -67,6 +67,10 @@ class SectionViewModel {
 }
 
 /// This is for sharing view model in multiple view controllers
-struct ViewModel {
+class ViewModel: NSObject {
     static var section = SectionViewModel()
+
+    deinit {
+        print("Deinit \(self.description)")
+    }
 }

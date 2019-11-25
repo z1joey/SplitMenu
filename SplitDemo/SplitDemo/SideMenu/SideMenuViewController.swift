@@ -44,6 +44,8 @@ class SideMenuViewController: UIViewController {
                 let section = ViewModel.section.sections[indexPath.row]
                 self.container?.publishSubject
                     .onNext((row: indexPath.row, isFolding: section.isFolding))
+//                self.container?.publishSubject
+//                    .onCompleted()
             },
             onCompleted: {
                 print("Tap Action Completed")
