@@ -41,17 +41,29 @@ class SectionViewModel {
         SideMenuOption(title: "Title4", image: UIImage(named: "photo-camera"))
     ])
 
-    var sections: [Section] = {
+    var sections: [Section] = [] {
+        didSet {
+            print("ViewModel Section: ", sections)
+        }
+    }
+
+    var sectionObservable: Observable<[Section]> {
+        return Observable.of(sections)
+    }
+
+    init() {
+        sections = getSections()
+    }
+
+    fileprivate func getSections() -> [Section] {
         var data: [Section] = []
         for i in 0...5 {
             let section = Section(id: i, title: "ID \(i)", data: ["Chinese", "English", "Japanese", "Germany", "Thailand", "Australia"], isFolding: true)
             data.append(section)
         }
         return data
-    }()
-
-    var sectionObservable: Observable<[Section]> {
-        return Observable.of(sections)
     }
 
 }
+
+var sectionViewModel = SectionViewModel()

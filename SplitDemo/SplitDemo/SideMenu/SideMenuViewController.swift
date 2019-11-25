@@ -9,16 +9,6 @@ import RxCocoa
 
 class SideMenuViewController: UIViewController {
 
-    let viewModel = SectionViewModel()
-
-    fileprivate var isSectionFolding = BehaviorRelay<(section: Int, isFolding: Bool)?>(value: nil)
-
-    var isSectionF = PublishSubject<(section: Int, isFolding: Bool)>()
-
-    var sectionStatus: Observable<(section: Int, isFolding: Bool)?> {
-        return isSectionFolding.asObservable()
-    }
-
     var bag = DisposeBag()
 
     var container: ViewController? {
@@ -34,13 +24,11 @@ class SideMenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupRxTableview()
-
-
     }
 
     fileprivate func setupRxTableview() {
         /// Data Source
-        viewModel.sideMenuOptions
+        sectionViewModel.sideMenuOptions
             .bind(to: tableView.rx.items(cellIdentifier: "cell")) { row, option, cell in
                 if let cell = cell as? SideMenuCell {
                     cell.setup(option: option)
@@ -52,8 +40,8 @@ class SideMenuViewController: UIViewController {
             onNext: { [weak self] indexPath in
                 guard let self = self else { return }
                 self.tableView.deselectRow(at: indexPath, animated: true)
-                self.viewModel.sections[indexPath.row].isFolding.toggle()
-                let section = self.viewModel.sections[indexPath.row]
+                sectionViewModel.sections[indexPath.row].isFolding.toggle()
+                let section = sectionViewModel.sections[indexPath.row]
                 self.container?.publishSubject
                     .onNext((row: indexPath.row, isFolding: section.isFolding))
             },
@@ -66,8 +54,4 @@ class SideMenuViewController: UIViewController {
         ).disposed(by: bag)
     }
     
-}
-
-extension Notification.Name {
-    static let didClickSideMenuOption = Notification.Name("didClickSideMenuOption")
 }
