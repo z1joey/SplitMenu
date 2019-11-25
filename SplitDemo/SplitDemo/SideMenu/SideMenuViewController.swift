@@ -7,21 +7,23 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-struct CellInfo {
-    let title: String
-    let image: UIImage?
-}
-
 class SideMenuViewController: UIViewController {
 
-    var cellInfo: Observable<[CellInfo]> = Observable<[CellInfo]>.just([
-        CellInfo(title: "Title1", image: UIImage(named: "book")),
-        CellInfo(title: "Title2", image: UIImage(named: "headphones")),
-        CellInfo(title: "Title3", image: UIImage(named: "monitor")),
-        CellInfo(title: "Title4", image: UIImage(named: "photo-camera"))
-    ])
+    let viewModel = SectionViewModel()
+
+    fileprivate var isSectionFolding = BehaviorRelay<(section: Int, isFolding: Bool)?>(value: nil)
+
+    var isSectionF = PublishSubject<(section: Int, isFolding: Bool)>()
+
+    var sectionStatus: Observable<(section: Int, isFolding: Bool)?> {
+        return isSectionFolding.asObservable()
+    }
 
     var bag = DisposeBag()
+
+    var container: ViewController? {
+        return self.parent as? ViewController
+    }
 
     @IBOutlet weak var tableView: UITableView! {
         didSet {
@@ -31,26 +33,39 @@ class SideMenuViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupRxTableview()
 
-        bindTableView()
-        bindTapAction()
+
     }
 
-    fileprivate func bindTableView() {
-        cellInfo
-            .bind(to: tableView.rx.items(cellIdentifier: "cell")) { row, info, cell in
+    fileprivate func setupRxTableview() {
+        /// Data Source
+        viewModel.sideMenuOptions
+            .bind(to: tableView.rx.items(cellIdentifier: "cell")) { row, option, cell in
                 if let cell = cell as? SideMenuCell {
-                    cell.setup(info: info)
+                    cell.setup(option: option)
                 }
             }.disposed(by: bag)
-    }
 
-    fileprivate func bindTapAction() {
-        tableView.rx.modelSelected(CellInfo.self).subscribe { cellInfo in
-            print(cellInfo.element?.title)
-        }.disposed(by: bag)
+        /// Tap Action
+        tableView.rx.itemSelected.subscribe(
+            onNext: { [weak self] indexPath in
+                guard let self = self else { return }
+                self.tableView.deselectRow(at: indexPath, animated: true)
+                self.viewModel.sections[indexPath.row].isFolding.toggle()
+                let section = self.viewModel.sections[indexPath.row]
+                self.container?.publishSubject
+                    .onNext((row: indexPath.row, isFolding: section.isFolding))
+            },
+            onCompleted: {
+                print("Tap Action Completed")
+            },
+            onDisposed: {
+                print("Tap Action Disposed")
+            }
+        ).disposed(by: bag)
     }
-
+    
 }
 
 extension Notification.Name {

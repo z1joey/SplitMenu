@@ -10,10 +10,10 @@ class SideMenuCell: UITableViewCell {
     @IBOutlet weak var optionImageView: UIImageView!
     @IBOutlet weak var optionTextLabel: UILabel!
 
-    var info: CellInfo? {
+    var option: SideMenuOption? {
         didSet {
-            optionTextLabel.text = info?.title
-            optionImageView.image = info?.image
+            optionTextLabel.text = option?.title
+            optionImageView.image = option?.image
         }
     }
 
@@ -28,8 +28,8 @@ class SideMenuCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
-    func setup(info: CellInfo) {
-        self.info = info
+    func setup(option: SideMenuOption) {
+        self.option = option
     }
 
 }

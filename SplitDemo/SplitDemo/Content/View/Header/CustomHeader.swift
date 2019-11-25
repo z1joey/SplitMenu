@@ -51,11 +51,11 @@ class CustomHeader: UITableViewHeaderFooterView {
     }
 
     @objc func tapAction() {
-        isFolding = (isFolding == true) ? false : true
-        if let section = section {
-            section.isFolding = isFolding
-            delegate?.headerView(headerView: self, didClicked: section)
-        }
+//        isFolding = (isFolding == true) ? false : true
+//        if let section = section {
+//            section.isFolding = isFolding
+//            delegate?.headerView(headerView: self, didClicked: section)
+//        }
     }
 
     func setup(section: Section) {
